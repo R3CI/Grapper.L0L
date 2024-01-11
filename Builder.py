@@ -94,14 +94,14 @@ ask("Connection info", "con_info")
 ask("PC info", "pc_info")
 
 
-def ask_othr():
-    c = input(f"{red} Do you want to continue to pc damaging/dangarous options? {black}(y/n)")
-    if c == "y":
-        exit()
-    elif c == "n":
-        pass
-    else:
-        print(f"{red}[{res}!{red}]{lred} Not a valid input use y or n")
+#def ask_othr():
+#    c = input(f"{red} Do you want to continue to pc damaging/dangarous options? {black}(y/n)")
+#    if c == "y":
+#        exit()
+#    elif c == "n":
+#        pass
+#    else:
+#        print(f"{red}[{res}!{red}]{lred} Not a valid input use y or n")
 
-ask_othr()
+#ask_othr()
 messagebox.showinfo("Grapper.l0l", "Build made!")
