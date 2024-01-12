@@ -40,7 +40,7 @@ except Exception as e:
     if hide:
         hwnd = ctypes.windll.kernel32.GetConsoleWindow()
         ctypes.windll.user32.MoveWindow(hwnd, 50000, 500000, 800, 600, True)
-    for pac in ["requests","psutil","pyautogui","secrets","pygame"]:
+    for pac in ["requests","psutil","pyautogui","pygame"]:
         os.system(f"pip install -q {pac}")
     import requests
     import psutil
@@ -372,8 +372,8 @@ while __name__ == "__main__":
 
     if play_music:
         try:
-            url = ''
-            r = requests.get(url)
+            music_url = ''
+            r = requests.get(music_url)
             r.raise_for_status()
             with open('C:/temp_music.mp3', 'wb') as file:
                 file.write(r.content)
