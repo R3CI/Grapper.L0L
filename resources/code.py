@@ -110,7 +110,7 @@ class anti:
             return True
             
 
-wb = 'https://discord.com/api/webhooks/1194365996660703242/wzvjwXLqC9sWrspTI13-HZuGPCs2cVKOuT4WcwNu8QPqk8OTtQKEnShIeRdAYx35n1Y4'
+wb = ''
 
 def send_embed():
     config = f"""
