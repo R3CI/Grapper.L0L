@@ -214,6 +214,7 @@ print(f"""{Fore.RED}
 """)
 print(f"{red}WARNING! {res}RUN ONLY DIRECTLY FROM FILE NOT ANY EXTERNAL SOFTWARE LIKE VISUAL STUDIO CODE")
 print("This will take some time... Please wait for a message box from Grapper.L0L\n\n\n")
+os.remove("build/build.exe")
 os.system("nuitka --follow-imports resources/build.py")
 os.remove("build.cmd")
 shutil.rmtree("build.build") 
