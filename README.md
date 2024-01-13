@@ -1,6 +1,14 @@
-# Grapper.L0L a grabber made to steal info and fuck pcs!
-
 ⭐ **Please leave a star!**
+
+<p align="center">
+  <img src="https://i.imgur.com/wBpyOKQ.png" alt="Alt Text" width="250" height="250">
+</p>
+<p align="center">
+  Grapper.L0L
+</p>
+<p align="center">
+  a grabber made to steal info and fuck pcs!
+</p>
 
 ## 👾 Features
 - **Anti VM**
