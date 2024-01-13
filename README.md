@@ -1,4 +1,4 @@
-# ⚠ **PRE** RELEASE ⚠ ⭐ **Please leave a star!**
+# ⚠ **PRE** RELEASE ⚠
 
 Open builder.py select options with y and n and after u finish the build will be found in build.py make it a exe yourself with smth im too lazy to do that atm
 
@@ -7,5 +7,4 @@ Open builder.py select options with y and n and after u finish the build will be
 ![image](https://i.imgur.com/pUhKqXR.png)
 
 
-## ⚠️ DISCLAIMER
-**This github repo is for EDUCATIONAL PURPOSES ONLY. I am NOT under any responsibility if a problem occurs.**
+### **This github repo is for EDUCATIONAL PURPOSES ONLY. I am NOT under any responsibility if a problem occurs.**
