@@ -1,21 +1,25 @@
+version = "1.0"
 import os
 try:
     import requests
     from colorama import Fore
     from tkinter import messagebox
     import shutil
+    import webbrowser
 
 except:
-    print("Seems like u dont have required pacages... installing them now")
+    os.system("title Grapper.L0L - Installing libs")
+    print("Seems like u dont have required libs... installing them now")
+    os.system("title Grapper.L0L - Updating pip")
     print("Updating pip")
     os.system("python.exe -m pip install --upgrade pip")
     os.system("cls")
     i = 0
-    for pac in ["requests", "colorama", "nuitka"]:
-        os.system(f"title Grapper.l0l - Installing {pac}")
+    for lib in ["requests", "colorama", "nuitka"]:
+        os.system(f"title Grapper.l0l - Installing {lib}")
         i += 1
-        os.system(f"pip install -q {pac}")
-        print(f"{pac} installed {i}/3")
+        os.system(f"pip install -q {lib}")
+        print(f"{lib} installed {i}/3")
     import requests
     from colorama import Fore
     from tkinter import messagebox
@@ -31,6 +35,50 @@ res = Fore.RESET
 purple = Fore.LIGHTMAGENTA_EX
 magenta = Fore.MAGENTA
 black = Fore.LIGHTBLACK_EX
+
+
+class auto_update:
+    try:
+        def get_info():
+            os.system("title Grapper.L0L - Searching for updates")
+            r = requests.get(f"https://api.github.com/repos/R3CI/Grapper.L0L/releases/latest")
+            if r.status_code == 200:
+                data = r.json()
+                changelog = data.get('body', '')
+                version = float(data['tag_name'])
+                return version, changelog
+            else:
+                return None, None
+            
+        def check_for_update(local, github, changelog):
+            local = float(local)
+            github = float(github)
+            if local == github:
+                pass
+            else:
+                if local < github: 
+                    os.system("title Grapper.L0L - New version is anvaible")
+                    os.system("cls")
+                    print(f"""{Fore.RED}
+███    ██ ███████ ██     ██     ██    ██ ███████ ██████  ███████ ██  ██████  ███    ██ 
+████   ██ ██      ██     ██     ██    ██ ██      ██   ██ ██      ██ ██    ██ ████   ██ 
+██ ██  ██ █████   ██  █  ██     ██    ██ █████   ██████  ███████ ██ ██    ██ ██ ██  ██ 
+██  ██ ██ ██      ██ ███ ██      ██  ██  ██      ██   ██      ██ ██ ██    ██ ██  ██ ██ 
+██   ████ ███████  ███ ███        ████   ███████ ██   ██ ███████ ██  ██████  ██   ████  
+                          
+{local} -> {github}                                                                                                                                                                   
+""")
+                    print(f"{lred}Change log\n{changelog}")
+                    input(f"\n{lred}{red}[{res}#{red}] Enter to open github on the newest release")
+                    webbrowser.open("https://github.com/R3CI/Grapper.L0L/releases")
+                    exit()
+
+        gh_version, changelog = get_info()
+        local_version = version
+        if gh_version and changelog:
+            check_for_update(local_version, gh_version, changelog)
+    except Exception as e: 
+        input(f"{red}[{res}Failed to check for updated{red}] {black}enter to continue... {lred}")
 
 print("Copying code...")
 with open("resources/code.py", "r") as src:
