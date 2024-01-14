@@ -1,7 +1,7 @@
 ⭐ **Please leave a star!**
 
 <p align="center">
-  <img src="https://i.imgur.com/wBpyOKQ.png" alt="Alt Text" width="250" height="250">
+  <img src="https://i.imgur.com/0t8UbhI.png" width="250" height="250">
 </p>
 <p align="center">
   Grapper.L0L
