@@ -1,5 +1,3 @@
-⭐ **Please leave a star!**
-
 <p align="center">
   <img src="https://i.imgur.com/0t8UbhI.png" width="250" height="250">
 </p>
@@ -9,6 +7,8 @@
 <p align="center">
   a grabber made to steal info and fuck pcs!
 </p>
+
+⭐ **Please leave a star!**
 
 ## 👾 Features
 - **Anti VM**
